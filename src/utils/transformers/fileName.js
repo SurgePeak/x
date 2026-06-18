@@ -15,11 +15,42 @@ export const transformerFileName = ({
   style = "v2",
   hideDot = false,
 } = {}) => ({
+  root(hast) {
+    hast.children = hast.children.map(child => {
+      if (child?.type === "element" && child.tagName === "pre") {
+        return {
+          type: "element",
+          tagName: "div",
+          properties: { class: ["relative"] },
+          children: [child],
+        };
+      }
+      return child;
+    });
+  },
   pre(node) {
     // Add CSS custom property to the node
     const fileNameOffset = style === "v1" ? "0.75rem" : "-0.75rem";
     node.properties.style =
       (node.properties.style || "") + `--file-name-offset: ${fileNameOffset};`;
+    node.properties.tabindex = "0";
+
+    // Add copy button (SSR) so it paints in place on first render and never
+    // appears after JS hydration.
+    node.children.push({
+      type: "element",
+      tagName: "button",
+      properties: {
+        type: "button",
+        "aria-label": "Copy code",
+        class: [
+          "copy-code absolute end-3 top-(--file-name-offset)",
+          "rounded bg-muted border border-muted px-2 py-1",
+          "text-xs leading-4 text-foreground font-medium",
+        ],
+      },
+      children: [{ type: "text", value: "Copy" }],
+    });
 
     const raw = this.options.meta?.__raw?.split(" ");
 
