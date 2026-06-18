@@ -3,6 +3,7 @@ import { ClientRouter } from "astro:transitions";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import { getAssetPath } from "@/utils/withBase";
+import FontLinks from "@/components/FontLinks.astro";
 import config from "@/config";
 import "@/styles/global.css";
 
@@ -43,47 +44,7 @@ const rssHref = getRelativeLocaleUrl(
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <!--
-      Fonts — local, subsetted with cn-font-split and served verbatim from
-      /public/fonts. The result.css files carry the @font-face declarations;
-      we preload only the basic-Latin slice of SF Pro Text (Regular + Bold)
-      so above-the-fold Western/UI text paints without a swap flash, matching
-      the previous no-FOUT behaviour. CJK slices load on demand per glyph.
-    -->
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-      href={getAssetPath(
-        "fonts/SF-Pro-Text-Regular/d8f2d1cb3e8cfaf4f379c5c0fde8e93d.woff2"
-      )}
-    />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-      href={getAssetPath(
-        "fonts/SF-Pro-Text-Bold/66b078c2701d179a838a753c7f2f0a81.woff2"
-      )}
-    />
-    <link
-      rel="stylesheet"
-      href={getAssetPath("fonts/SF-Pro-Text-Regular/result.css")}
-    />
-    <link
-      rel="stylesheet"
-      href={getAssetPath("fonts/SF-Pro-Text-Bold/result.css")}
-    />
-    <link
-      rel="stylesheet"
-      href={getAssetPath("fonts/PingFangSC-Regular/result.css")}
-    />
-    <link
-      rel="stylesheet"
-      href={getAssetPath("fonts/PingFangSC-Semibold/result.css")}
-    />
+    <FontLinks />
 
     <!-- Primary meta -->
     <title>{title}</title>
