@@ -7,7 +7,20 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --font-app: var(--font-google-sans-code);
+
+  /* ===== Font tokens =====
+     Western first, Chinese subset after — Latin chars hit the SF Pro Text
+     faces, CJK chars fall through to the cn-font-split PingFang subsets.
+     The Chinese family NAMES and WEIGHTS below are dictated by the
+     (unmodifiable) result.css files: PingFangSC-Regular -> "苹方_中等" 500,
+     PingFangSC-Semibold -> "苹方_特粗" 900. */
+  --font-sans: "SF Pro Text", "苹方_中等", sans-serif;
+  --font-sans-bold: "SF Pro Text", "苹方_特粗", sans-serif;
+  --font-mono: "SF Mono", "苹方_中等", monospace;
+
+  /* AstroPaper's app-wide font hook (consumed by the `font-app` utility
+     on <body> and by Pagefind via --pagefind-ui-font). */
+  --font-app: var(--font-sans);
 }
 
 /* Light theme values */
