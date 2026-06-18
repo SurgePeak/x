@@ -19,6 +19,12 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-code);
+  }
 }
 
 @utility max-w-app {

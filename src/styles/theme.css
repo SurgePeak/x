@@ -7,7 +7,16 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --font-app: var(--font-google-sans-code);
+
+  /* Local fonts (loaded via <link> in Layout.astro).
+     EN → SF Pro Text, CJK → PingFang SC; weight-matched per face:
+     normal text → Regular (400), bold text → SF Pro Bold (700) / PingFang Semibold (600). */
+  --font-app: "SF Pro Text", "PingFang SC", sans-serif;
+  --font-code: "SF Mono", "PingFang SC", monospace;
+
+  /* Map Tailwind's default font utilities onto the local stacks. */
+  --font-sans: var(--font-app);
+  --font-mono: var(--font-code);
 }
 
 /* Light theme values */
